@@ -1,0 +1,26 @@
+{
+    "name": "onesla/permission",
+    "description": "User-role permission for laravel",
+    "require": {
+        "php": ">=7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Onesla\\Permission\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Onesla\\Permission\\PermissionServiceProvider"
+            ],
+            "aliases": {
+                "Permission": "Onssla\\Permission\\Facade"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}
