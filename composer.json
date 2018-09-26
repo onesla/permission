@@ -2,7 +2,8 @@
     "name": "onesla/permission",
     "description": "User-role permission for laravel",
     "require": {
-        "php": ">=7.1"
+        "php": ">=7.1",
+        "doctrine/dbal": "^2.8"
     },
     "autoload": {
         "psr-4": {

@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Onesla\Permission\Profile;
 
 class HasAccess
 {
@@ -16,7 +17,7 @@ class HasAccess
             abort(403);
         }
 
-        if (!$this->hasPermission($this->getFunctionName($request), Auth::user()->user_profile_id)) {
+        if (!$this->hasPermission($this->getFunctionName($request), Auth::user()->profile_id)) {
             abort(403);
         }
 
@@ -25,14 +26,15 @@ class HasAccess
 
     protected function hasPermission($function_name, $id)
     {
-        return DB::table('profile_credentials')
-            ->join('user_credentials', 'user_credentials.id', 'user_credential_id')
-            ->where(['function_name', '=', $function_name],
-                ['user_profile_id', '=', $id])
-            ->orWhere(['function_name', '=', '*'],
-                ['user_profile_id', '=', 'id'])
-            ->get()
-            ->isNotEmpty();
+        if (empty($id)) {
+            return false;
+        }
+
+        $profile = Profile::find($id)->credentials;
+
+        if (empty($profile)) {
+            return false;
+        }
     }
 
     protected function getFunctionName(Request $request)
