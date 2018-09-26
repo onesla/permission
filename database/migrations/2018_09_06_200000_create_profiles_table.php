@@ -4,19 +4,20 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateUserCredentialsTable extends Migration
+class CreateProfilesTable extends Migration
 {
     public function up()
     {
-        Schema::create('user_credentials', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('function_name');
+            $table->string('profile_name');
+            $table->string('profile_description');
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('user_credentials');
+        Schema::dropIfExists('profiles');
     }
 }
