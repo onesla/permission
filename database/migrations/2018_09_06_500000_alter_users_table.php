@@ -13,7 +13,8 @@ class AlterUsersTable extends Migration
 
             $table->foreign('profile_id')
                 ->references('id')
-                ->on('profiles');
+                ->on('profiles')
+                ->onDelete('set null');
         });
     }
 }

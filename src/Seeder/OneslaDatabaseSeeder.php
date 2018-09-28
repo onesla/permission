@@ -12,7 +12,7 @@ class OneslaDatabaseSeeder extends Seeder
         $this->call([
             ProfilesTableSeeder::class,
             CredentialsTableSeeder::class,
-            ProfileCredentialTableSeeder::class
+            CredentialProfileTableSeeder::class
         ]);
     }
 }

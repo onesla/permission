@@ -4,13 +4,31 @@
 namespace Onesla\Permission\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), config('permission.validator.register'));
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
+
+        User::create($data);
+
+        return redirect()->route('login');
+    }
+
     public function logout()
     {
         Auth::logout();
@@ -40,24 +58,5 @@ class AuthController extends Controller
                 ->back()
                 ->withErrors(['auth' => config('permission.message.auth_fail')]);
         }
-    }
-
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), config('permission.validator.register'));
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
-        $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
-
-        User::create($data);
-
-        return redirect()->route('login');
     }
 }

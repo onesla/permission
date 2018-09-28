@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateProfileCredentialTable extends Migration
+class CreateCredentialProfileTable extends Migration
 {
     public function up()
     {
-        Schema::create('profile_credential', function (Blueprint $table) {
+        Schema::create('credential_profile', function (Blueprint $table) {
             $table->unsignedInteger('profile_id');
             $table->unsignedInteger('credential_id');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamps();
             $table->unique(['profile_id', 'credential_id']);
 
             $table->foreign('profile_id')
@@ -30,7 +30,7 @@ class CreateProfileCredentialTable extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
-        Schema::dropIfExists('profile_credential');
+        Schema::dropIfExists('credential_profile');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

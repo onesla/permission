@@ -7,13 +7,14 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class ProfileCredentialTableSeeder extends Seeder
+class ProfilesTableSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('profile_credential')->insert([
-            'profile_id' => 1,
-            'credential_id' => 1,
+        DB::table('profiles')->insert([
+            'id' => 1,
+            'name' => 'Admin',
+            'description' => 'All access/operations',
             'created_at' => Carbon::now()
         ]);
     }
